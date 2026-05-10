@@ -7,7 +7,7 @@ let isNumActive = false;
 
 buttons.forEach(function(button){
   button.onclick = function(){
-    if(screen.textContent==`NaN`){
+    if(screen.textContent==`Error`){
       screen.textContent=``;
     }
     switch(this.value){
@@ -162,7 +162,7 @@ buttons.forEach(function(button){
         }
         let result = compute(numbers, operators);
         if(isNaN(result)){
-          screen.textContent = `NaN`;
+          screen.textContent = `Error`;
           numbers.length = 0;
           operators.length = 0;
           isNumActive = false;
