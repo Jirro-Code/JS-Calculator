@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap');
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.container{
+  z-index: 1;
+  background: #010101;
+  width: 355px;
+  box-sizing: border-box;
+  border: 1px solid #2d7fff;
+  border-radius: 25px;
+}
+.screen{
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: bold;
+  color: #F5F5F5;
+  display: flex;
+  flex-direction: row-reverse;
+  overflow: hidden;
+  z-index: 2;
+  height: 170px;
+  width: 350px;
+  margin: auto;
+  align-items: center;
+}
+.keypad{
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  z-index: 3;
+  background: #1A1A1A;
+  height: 455px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.buttons {
+  transform: translateY(15px);
+  display: grid;
+  grid-template-columns: repeat(4, 75px);
+  gap: 5px;
+  margin: auto;
+  width: fit-content;
+}
+.button{
+  font-family: 'Rajdhani', sans-serif;
+  color: #F5F5F5;
+  font-size: 1.5em;
+  border: 0.1px solid #F5F5F5;
+  border-radius: 100px;
+  height: 75px;
+  width: 75px;
+  background: #26262c;
+}
+#clear{
+  color: #2d7fff;
+  font-size: 2em;
+}
+#operators{
+  font-size: 3em;
+  color: #2d7fff;
+}
+#delete{
+  color: #2d7fff;
+}
+#equal{
+  color: #F5F5F5;
+  background: #2d7fff;
+  font-size: 2em;
+  height: 150px;
+  grid-row-start: 4;
+  grid-column: 4;
+  grid-row: 4 / span 2;
+}
+.button:active{
+  background: #18181d;
+}
+#equal:active{
+  background: #17468e;
+}
