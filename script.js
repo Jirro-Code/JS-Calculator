@@ -175,6 +175,10 @@ buttons.forEach(function(button){
           result = String(result);
           numbers.push(result);
           isNumActive = true;
+          if(screen.textContent == `67`){
+            screen.innerHTML = `<span id="six">6</span><span id="seven">7</span>`;
+            secretAnimation();
+          }
           break;
         }
     }
@@ -241,17 +245,37 @@ function countIncludedPercents(){
 }
 
 function adjustFontSize(){
-  let length = screen.textContent.length;
-  if(length <= 10){
+  if(screen.textContent.length <= 10){
     screen.style.fontSize = "4em";
   }
-  else if(length <= 14){
+  else if(screen.textContent.length <= 14){
     screen.style.fontSize = "3em";
   }
-  else if(length <= 21){
+  else if(screen.textContent.length <= 21){
     screen.style.fontSize = "2em";
   }
   else{
     screen.style.fontSize = "1.5em";
   }
+}
+
+function secretAnimation(){
+  const six = document.getElementById("six");
+  const seven = document.getElementById("seven");
+  six.animate([
+    { transform: "translateY(0)"},
+    { transform: "translateY(-15px)"},
+    { transform: "translateY(15px)"},
+    { transform: "translateY(-15px)"},
+    { transform: "translateY(15px)"},
+    { transform: "translateY(0)"}
+  ], { duration: 1000});
+  seven.animate([
+    { transform: "translateY(0)"},
+    { transform: "translateY(15px)"},
+    { transform: "translateY(-15px)"},
+    { transform: "translateY(15px)"},
+    { transform: "translateY(-15px)"},
+    { transform: "translateY(0)"}
+  ], { duration: 1000});
 }
