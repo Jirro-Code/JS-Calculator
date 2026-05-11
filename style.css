@@ -83,3 +83,6 @@ body {
 #equal:active{
   background: #17468e;
 }
+#six, #seven {
+  display: inline-block;
+}
