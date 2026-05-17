@@ -7,6 +7,7 @@ let isNumActive = false;
 
 buttons.forEach(function(button){
   button.onclick = function(){
+    let countIncludedPercents = () => operators.filter(item => item == '%').length;
     if(screen.textContent==`Error`){
       screen.textContent=``;
     }
@@ -189,15 +190,12 @@ buttons.forEach(function(button){
 function compute(numbers, operators){
   for(let i = 0; i < operators.length; i++){
     if (operators[i] == "%") {
-      if (operators[i - 1] === undefined || operators[i-1] == "×" || operators[i-1] == "÷" ) {
+      if (operators[i - 1] === undefined || operators[i-1] == "×" || operators[i-1] == "÷" || operators[i+1] == "×" || operators[i+1] == "÷") {
         numbers[i] /= 100;
+        operators.splice(i, 1);
+        i--;
+        continue;
       }
-      else if(operators[i -1] == "+" || operators[i-1] == "-"){
-        numbers[i] = numbers[i - 1] * (numbers[i] / 100);
-      }
-      operators.splice(i, 1);
-      i--;
-      continue;
     }
   }
   for(let i = 0; i < operators.length; i++){
@@ -223,25 +221,59 @@ function compute(numbers, operators){
   }
   for(let i = 0; i < operators.length; i++){
     if(operators[i] == "+"){
-      let newNum = numbers[i] + numbers[i+1];
-      operators.splice(i, 1);
-      numbers.splice(i, 2, newNum);
-      i--;
-      continue;
+      if(operators[i+1] == "%"){
+        let prevTotal = numbers[0];
+        for(let j = 0; j < i; j++){
+          if(operators[j] == "+") {
+            prevTotal += numbers[j+1];
+          }
+          else if(operators[j] == "-") {
+            prevTotal -= numbers[j+1];
+          }
+        }
+        let percentValue = prevTotal * (numbers[i+1] / 100);
+        let newNum = numbers[i] + percentValue;
+        operators.splice(i, 2);
+        numbers.splice(i, 2, newNum);
+        i--;
+        continue;
+      }
+      else{
+        let newNum = numbers[i] + numbers[i+1];
+        operators.splice(i, 1);
+        numbers.splice(i, 2, newNum);
+        i--;
+        continue;
+      }
     }
     else if(operators[i] == "-"){
-      let newNum = numbers[i] - numbers[i+1];
-      operators.splice(i, 1);
-      numbers.splice(i, 2, newNum);
-      i--;
-      continue;
+      if(operators[i+1] == "%"){
+        let prevTotal = numbers[0];
+        for(let j = 0; j < i; j++){
+          if(operators[j] == "+") {
+            runningTotal += numbers[j+1];
+          }
+          else if(operators[j] == "-") {
+            prevTotal -= numbers[j+1];
+          }
+        }
+        let percentValue = prevTotal * (numbers[i+1] / 100);
+        let newNum = numbers[i] - percentValue;
+        operators.splice(i, 2);
+        numbers.splice(i, 2, newNum);
+        i--;
+        continue;
+      }
+      else{
+        let newNum = numbers[i] - numbers[i+1];
+        operators.splice(i, 1);
+        numbers.splice(i, 2, newNum);
+        i--;
+        continue;
+      }
     }
   }
   return numbers[0];
-}
-
-function countIncludedPercents(){
-  return operators.filter(item => item == '%').length;
 }
 
 function adjustFontSize(){
